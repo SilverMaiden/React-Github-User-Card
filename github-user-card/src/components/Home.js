@@ -1,12 +1,12 @@
 import React from 'react';
-import Card from './Card';
+import GitCard from './Card';
 import axios from 'axios';
 
 class Home extends React.Component {
-    constructor(props) {
-        super(props)
+    constructor() {
+        super()
         this.state = {
-            responseData: {},
+            followersUrlArr: [],
             usersArr: [],
             currentUser:"silvermaiden",
         }
@@ -15,13 +15,17 @@ class Home extends React.Component {
     componentDidMount() {
         axios.get(`https://api.github.com/users/${this.state.currentUser}`)
         .then(response => {
-            this.setState({usersArr: [this.state.usersArr, response.data]})
-            this.setState({followersArr: [...this.state.followersArr, response.data.followers]})
-            console.log(this.state.followersArr);
-            this.state.followersArr.forEach(person => {
-                axios.get(`https://api.github.com/users/${person.login.toLowerCase()}`)
-                .then(response => {
-                    this.setState({usersArr: [...this.state.usersArr, response.data]})
+            this.setState({usersArr: [...this.state.usersArr, response.data]})
+            this.setState({followersUrlArr: [...this.state.followersUrlArr, response.data.followers_url]})
+            axios.get(`${this.state.followersUrlArr}`)
+            .then(response => {
+                response.data.forEach(person => {
+                    let username = person.login.toLowerCase();
+                    axios.get(`https://api.github.com/users/${username}`)
+                    .then(response => {
+                        this.setState({usersArr: [...this.state.usersArr, response.data]})
+
+                    })
                 })
             })
         })
@@ -31,11 +35,13 @@ class Home extends React.Component {
 
     render() {
         return (
-            <>
-            {console.log(this.state.usersArr)}
-                <h1> HOME PAGE </h1>
-                <Card data={this.state.responseData} />
-            </>
+            <div className="card-container">
+                <h1> Github Cards </h1>
+                {console.log(this.state.usersArr)}
+                {this.state.usersArr.map(user => (
+                    <GitCard data={user} />
+                ))}
+            </div>
 
         )
     }

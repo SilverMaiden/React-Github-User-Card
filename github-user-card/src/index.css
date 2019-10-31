@@ -5,10 +5,42 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+    background: rgb(255,251,171);
+    background: linear-gradient(0deg, rgba(255,251,171,1) 0%, rgba(246,165,69,1) 38%, rgba(241,60,111,1) 100%);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: column nowrap;
+    width: 100%;
+}
+
+.git-card {
+    width: 40%;
+    margin: 3%;
+    padding: 3%;
+    display: flex;
+    flex-flow: row !important;
+    box-shadow: 0.5px 5px 12px DarkSlateGray ;
+    border: solid grey 7px;
+}
+.git-card img {
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  margin-right: 20px;
+}
+
+
+h1 {
+    color: white;
+}
+
 
