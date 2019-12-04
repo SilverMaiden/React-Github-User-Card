@@ -9,6 +9,7 @@
     "react-dom": "^16.11.0",
     "react-scripts": "3.2.0",
     "react-strap": "0.0.1",
+    "react-transition-group": "^1.2.1",
     "reactstrap": "^8.1.1"
   },
   "scripts": {
